@@ -24,31 +24,17 @@ public class Department {
     private int id;
     @Column
     private String name;
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-                    CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinTable(name = "student_department",
-            joinColumns = @JoinColumn(name = "department_id"),
-            inverseJoinColumns = @JoinColumn(name= "student_id"))
-    private List<Student> students;
 
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
-    private List<Course> courses;
+    private List<Student> students;
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-                    CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinTable(name = "semester_department",
-            joinColumns = @JoinColumn(name = "department_id"),
-            inverseJoinColumns = @JoinColumn(name= "semester_id"))
-    private List<Semester> semesters;
+//    @ManyToMany(fetch = FetchType.LAZY,
+//            cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+//                    CascadeType.DETACH, CascadeType.REFRESH})
+//    @JoinTable(name = "semester_department",
+//            joinColumns = @JoinColumn(name = "department_id"),
+//            inverseJoinColumns = @JoinColumn(name= "semester_id"))
+//    private List<Semester> semesters;
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-                    CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinTable(name = "session_department",
-            joinColumns = @JoinColumn(name = "department_id"),
-            inverseJoinColumns = @JoinColumn(name= "session_id"))
 
-    private List<Session> sessions;
 }

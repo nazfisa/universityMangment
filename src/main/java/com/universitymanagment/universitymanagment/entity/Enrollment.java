@@ -11,43 +11,35 @@ import java.util.List;
 /**
  * @author : Name
  * @author : Nazim Uddin Asif
- * @since : 1/6/2021, Wed
+ * @since : 1/9/2021, Sat
  **/
 @Entity
 @Setter
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor
-public class Student {
+public class Enrollment {
     @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column
-    private String name;
-    @Column
-    private String academicId;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "student_id")
+    private Student student;
 
     @ManyToOne(fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.MERGE,
                     CascadeType.DETACH,
                     CascadeType.REFRESH})
-    @JoinColumn(name = "department_id")
-    private Department department;
+    @JoinColumn(name = "sessionSemester_id")
+    private SessionSemester sessionSemester;
 
-    @ManyToOne(fetch = FetchType.LAZY,
+    @OneToMany(fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.MERGE,
                     CascadeType.DETACH,
                     CascadeType.REFRESH})
-    @JoinColumn(name = "batch_id")
-    private Batch batch;
-
-    @OneToOne(mappedBy = "student", cascade= {CascadeType.MERGE,
-            CascadeType.PERSIST,
-            CascadeType.REFRESH,
-            CascadeType.DETACH})
-
-    private Enrollment enrollment;
-
-
+    @JoinColumn(name = "course_id")
+    private List<Course> courses;
 }
