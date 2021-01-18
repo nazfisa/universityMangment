@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Enrollment {
+public class Enrollment implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -35,11 +36,11 @@ public class Enrollment {
     @JoinColumn(name = "sessionSemester_id")
     private SessionSemester sessionSemester;
 
-    @OneToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.MERGE,
-                    CascadeType.DETACH,
-                    CascadeType.REFRESH})
-    @JoinColumn(name = "course_id")
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+                    CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinTable(name = "course_enrollment",
+            joinColumns = @JoinColumn(name = "enrollment_id"),
+            inverseJoinColumns = @JoinColumn(name= "course_id"))
     private List<Course> courses;
 }

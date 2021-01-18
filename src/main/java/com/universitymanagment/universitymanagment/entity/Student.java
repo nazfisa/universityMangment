@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ import java.util.List;
 @Setter
 @Getter
 @NoArgsConstructor
-public class Student {
+public class Student implements Serializable {
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     private long id;
@@ -46,7 +47,6 @@ public class Student {
             CascadeType.PERSIST,
             CascadeType.REFRESH,
             CascadeType.DETACH})
-
     private Enrollment enrollment;
 
 

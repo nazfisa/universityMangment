@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -18,11 +19,14 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SessionSemester {
+public class SessionSemester implements Serializable {
 
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column
+    private String name;
 
     @OneToMany(mappedBy = "sessionSemester", cascade = CascadeType.ALL)
     private List<Enrollment> enrollments;

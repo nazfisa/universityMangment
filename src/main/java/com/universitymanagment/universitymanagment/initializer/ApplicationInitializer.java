@@ -1,7 +1,7 @@
 package com.universitymanagment.universitymanagment.initializer;
 
-import com.universitymanagment.universitymanagment.entity.Student;
-import com.universitymanagment.universitymanagment.repository.StudentRepository;
+import com.universitymanagment.universitymanagment.entity.*;
+import com.universitymanagment.universitymanagment.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -18,45 +18,70 @@ import java.util.List;
 public class ApplicationInitializer implements CommandLineRunner {
     @Autowired
     private StudentRepository studentRepository;
+    @Autowired
+    private DepartmentRepository departmentRepository;
+    @Autowired
+    private CourseRepository courseRepository;
+    @Autowired
+    private BatchRepository batchRepository;
+    @Autowired
+    private SessionSemesterRepository sessionSemesterRepository;
+    @Autowired
+    private EnrollmentRepository enrollmentRepository;
 
 
     @Override
     public void run(String... args) throws Exception {
 
 
-//        Student student1 = new Student();
-//        student1.setId(1);
-//        student1.setAcademicId("C151094");
-//        student1.setName("Nazim");
-//        studentRepository.save(student1);
-//
-//        Student student2 = new Student();
-//        student2.setId(2);
-//        student2.setAcademicId("C151095");
-//        student2.setName("Nishad");
-//        studentRepository.save(student2);
-//        Session session1 = new Session();
-//        session1.setId(1);
-//        session1.setName("Spring20");
-//        Session session2 = new Session();
-//        session2.setId(2);
-//        session2.setName("Spring21");
-//
-//        List<Student> students = new ArrayList<>();
-//        students.add(student1);
-////        students.add(student2);
-//
-//        session1.setStudents(students);
-//        sessionRepository.save(session1);
-//        sessionRepository.save(session2);
-//        List<Session> sessions = List.of(session1, session2);
+        Student student1 = new Student();
+        student1.setId(1);
+        student1.setName("asif");
+        student1.setAcademicId("C151094");
 
 
-//        student1.setSessions(sessions);
-//        student2.setSessions(sessions);
-//        studentRepository.save(student1);
-//        studentRepository.save(student2);
+        Department department = new Department();
+        department.setId(1);
+        department.setName("CSE");
+        departmentRepository.save(department);
 
+        Course course1 = new Course();
+        course1.setId(1);
+        course1.setName("C Programming");
+        courseRepository.save(course1);
+
+        Course course2 = new Course();
+        course2.setId(2);
+        course2.setName("C++ Programming");
+        courseRepository.save(course2);
+
+
+        List<Course> courses = new ArrayList<>();
+        courses.add(course1);
+        courses.add(course2);
+
+        Batch batch1 = new Batch();
+        batch1.setId(1);
+        batch1.setName("Batch1");
+        batchRepository.save(batch1);
+
+        SessionSemester sessionSemester = new SessionSemester();
+        sessionSemester.setId(1);
+        sessionSemester.setName("Session1");
+        sessionSemesterRepository.save(sessionSemester);
+
+
+        Enrollment enrollment = new Enrollment();
+        enrollment.setId(1);
+        enrollment.setCourses(courses);
+        enrollment.setStudent(student1);
+        enrollment.setSessionSemester(sessionSemester);
+        enrollmentRepository.save(enrollment);
+
+        student1.setBatch(batch1);
+        student1.setDepartment(department);
+        student1.setEnrollment(enrollment);
+        studentRepository.save(student1);
 
 
     }

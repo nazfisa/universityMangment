@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Department {
+public class Department implements Serializable {
     @Id
     @GeneratedValue( strategy =  GenerationType.IDENTITY)
     private int id;
@@ -27,14 +28,5 @@ public class Department {
 
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
     private List<Student> students;
-
-//    @ManyToMany(fetch = FetchType.LAZY,
-//            cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-//                    CascadeType.DETACH, CascadeType.REFRESH})
-//    @JoinTable(name = "semester_department",
-//            joinColumns = @JoinColumn(name = "department_id"),
-//            inverseJoinColumns = @JoinColumn(name= "semester_id"))
-//    private List<Semester> semesters;
-
 
 }
